@@ -1,8 +1,8 @@
 {
-  "name": "ts-express-api-boilerplate",
+  "name": "electronic-logbook-api",
   "version": "1.0.0",
   "main": "src/server.js",
-  "repository": "",
+  "repository": "https://github.com/faiyaz032/electronic-logbook-api.git",
   "author": "Faiyaz Rahman",
   "license": "MIT",
   "scripts": {
