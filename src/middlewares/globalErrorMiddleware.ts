@@ -21,7 +21,6 @@ const sendProductionError = (error: any, res: Response) => {
  * This functions handle all the global error from any where of the codebase.
  */
 const globalErrorMiddleware: ErrorRequestHandler = (error, req, res, next) => {
-  console.log('hitting middleware');
   error.status = error.status || 'error';
   error.statusCode = error.statusCode || 500;
 
