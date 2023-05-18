@@ -7,9 +7,9 @@ import {
   prop,
 } from '@typegoose/typegoose';
 import bcrypt from 'bcryptjs';
-import { nanoid } from 'nanoid';
+import { v4 as generateId } from 'uuid';
 
-@pre<UserSchema>('save', async function () {
+@pre<User>('save', async function () {
   if (!this.isModified('password')) return;
   const hash = await bcrypt.hash(this.password, 10);
 
@@ -25,20 +25,20 @@ import { nanoid } from 'nanoid';
     allowMixed: Severity.ALLOW,
   },
 })
-export class UserSchema {
+export class User {
   @prop({ required: [true, 'First Name must be required'] })
   firstName: string;
 
   @prop({ required: [true, 'Last Name must be required'] })
   lastName: string;
 
-  @prop({ required: [true, 'Email must be required'], trim: true })
+  @prop({ required: [true, 'Email must be required'], trim: true, unique: true })
   email: string;
 
   @prop({ required: [true, 'Password must be required'] })
   password: string;
 
-  @prop({ required: true, default: () => nanoid() })
+  @prop({ required: true, default: generateId() })
   verificationCode: string;
 
   @prop()
@@ -56,16 +56,16 @@ export class UserSchema {
   /**
    *This function will validate the given password with actual password
    */
-  async validatePassword(this: DocumentType<UserSchema>, candidatePassword: string) {
+  async validatePassword(this: DocumentType<User>, candidatePassword: string) {
     try {
-      return await bcrypt.compare(this.password, candidatePassword);
+      return await bcrypt.compare(candidatePassword, this.password);
     } catch (error) {
-      console.log(error);
+      console.log(error, 'could not validate password');
       return false;
     }
   }
 }
 
-const User = getModelForClass(UserSchema);
+const UserModel = getModelForClass(User);
 
-export default User;
+export default UserModel;
