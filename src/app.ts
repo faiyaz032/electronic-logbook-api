@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+require('dotenv').config();
 import express, { Application, urlencoded } from 'express';
 import morgan from 'morgan';
 import globalErrorMiddleware from './middlewares/globalErrorMiddleware';
@@ -6,8 +6,6 @@ import notFoundMiddleware from './middlewares/notFoundMiddleware';
 import apiRoutes from './routes';
 
 const app: Application = express();
-
-dotenv.config();
 
 app.use(express.json());
 app.use(urlencoded({ extended: true }));

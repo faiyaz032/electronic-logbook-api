@@ -4,13 +4,14 @@ import log from './logger';
 /**
  * Configured Transporter to send email
  */
+
 const transporter: Transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
+  host: process.env.SMTP_HOST as string,
+  port: Number(process.env.SMTP_PORT),
   secure: false,
   auth: {
-    user: 'laro36lec7aq4y6h@ethereal.email',
-    pass: '4hupzqQbuT5xykQN3m',
+    user: process.env.SMTP_USER as string,
+    pass: process.env.SMTP_PASS as string,
   },
 });
 

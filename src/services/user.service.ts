@@ -7,9 +7,13 @@ class UserService {
     this.model = UserModel;
   }
 
-  async createUser(user: Partial<User>) {
+  createUser = async (user: Partial<User>) => {
     return this.model.create(user);
-  }
+  };
+
+  getUserById = async (id: string) => {
+    return this.model.findById(id);
+  };
 }
 
 export default UserService;

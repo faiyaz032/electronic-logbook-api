@@ -8,7 +8,10 @@ const userRouter = express.Router();
 const controller = new UserController();
 
 userRouter.post('/', validateResource(createUserSchema), controller.createUserHandler);
-
-userRouter.post('/verify', validateResource(verifyUserSchema), controller.verifyUserHandler);
+userRouter.post(
+  '/verify/:verificationCode/:id',
+  validateResource(verifyUserSchema),
+  controller.verifyUserHandler
+);
 
 export default userRouter;
