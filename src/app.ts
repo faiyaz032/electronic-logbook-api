@@ -1,6 +1,7 @@
 require('dotenv').config();
 import express, { Application, urlencoded } from 'express';
 import morgan from 'morgan';
+import deserializeUser from './middlewares/deserializeUser';
 import globalErrorMiddleware from './middlewares/globalErrorMiddleware';
 import notFoundMiddleware from './middlewares/notFoundMiddleware';
 import apiRoutes from './routes';
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+app.use(deserializeUser);
 app.use('/api', apiRoutes);
 
 //Error Middlewares

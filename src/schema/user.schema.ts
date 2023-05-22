@@ -34,5 +34,31 @@ export const verifyUserSchema = object({
   }),
 });
 
+export const forgetPasswordSchema = object({
+  body: object({
+    email: string({
+      required_error: 'email must be required',
+    }).email('Not a valid email'),
+  }),
+});
+
+export const resetPasswordSchema = object({
+  params: object({
+    id: string({
+      required_error: 'User id must be on the url param',
+    }),
+    passwordResetCode: string({
+      required_error: 'passwordResetCode must be on the url param',
+    }),
+  }),
+  body: object({
+    password: string({
+      required_error: 'password name must be required',
+    }).min(6, 'Password is too short-should be 6 chars'),
+  }),
+});
+
 export type CreateUserInput = TypeOf<typeof createUserSchema>['body'];
 export type VerifyUserInput = TypeOf<typeof verifyUserSchema>['params'];
+export type ForgetPasswordInput = TypeOf<typeof forgetPasswordSchema>['body'];
+export type ResetPasswordInput = TypeOf<typeof resetPasswordSchema>;

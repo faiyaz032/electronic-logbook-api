@@ -9,6 +9,14 @@ import {
 import bcrypt from 'bcryptjs';
 import { v4 as generateId } from 'uuid';
 
+export const privateFields = [
+  'password',
+  '__v',
+  'verificationCode',
+  'passwordResetCode',
+  'verified',
+];
+
 @pre<User>('save', async function () {
   if (!this.isModified('password')) return;
   const hash = await bcrypt.hash(this.password, 10);

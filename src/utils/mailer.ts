@@ -4,10 +4,9 @@ import log from './logger';
 /**
  * Configured Transporter to send email
  */
-
 const transporter: Transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST as string,
-  port: Number(process.env.SMTP_PORT),
+  port: Number(process.env.SMTP_PORT as string),
   secure: false,
   auth: {
     user: process.env.SMTP_USER as string,

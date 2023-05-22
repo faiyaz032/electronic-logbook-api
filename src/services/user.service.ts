@@ -14,6 +14,10 @@ class UserService {
   getUserById = async (id: string) => {
     return this.model.findById(id);
   };
+
+  getUserByEmail = async (email: string) => {
+    return this.model.findOne({ email: email });
+  };
 }
 
 export default UserService;
